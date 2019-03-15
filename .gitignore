@@ -1,0 +1,8 @@
+# IntelliJ
+*.idea
+
+# TypeScript
+/dist
+
+# Dependencies
+/node_modules
