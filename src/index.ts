@@ -13,9 +13,9 @@ app.get('/', async (req, res) => {
   const credential = req.query.credential as string | null;
   const format = req.query.format as string | null || 'json';
 
-  if (format !== 'json' && format !== 'flag') {
+  if (format !== 'json' && format !== 'flag' && format !== 'http-status') {
     return sendJSONResponse(res, 400, {
-      error: `Invalid format. Use 'json' or 'flag'`
+      error: `Invalid format. Use 'json', 'flag', or 'http-status'`
     });
   }
 
@@ -53,6 +53,8 @@ app.get('/', async (req, res) => {
       return sendJSONResponse(res, 200, {
         available: turnServerAvailable
       });
+    case 'http-status':
+      return res.sendStatus(turnServerAvailable ? 200 : 418);
     default:
       throw Error('Unknown format!');
   }
